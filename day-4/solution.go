@@ -15,6 +15,7 @@ func main() {
 
 	input_path := "./input.txt"
 	// input_path := "./input-sample.txt"
+	// input_path := "./input-sample-2.txt"
 
 	_, source_file_path, _, _ := runtime.Caller(0)
 	source_dir := filepath.Dir(source_file_path)
@@ -38,10 +39,6 @@ func main() {
 		matrix[i] = []rune(line)
 	}
 
-	fmt.Println()
-
-	// PROBLEM 1
-
 	get_cell := func(x int, y int) rune {
 		if x < 0 || y < 0 {
 			return '.'
@@ -58,7 +55,11 @@ func main() {
 		return get_cell(x, y) == value
 	}
 
-	word_count := 0
+	fmt.Println()
+
+	// PROBLEM 1
+
+	xmas_count := 0
 
 	for i, row := range matrix {
 		for j, cell := range row {
@@ -69,48 +70,48 @@ func main() {
 			// Horizontal
 			if cell_match(j+1, i, 'M') && cell_match(j+2, i, 'A') && cell_match(j+3, i, 'S') {
 				// fmt.Println(j, i, "horizontal")
-				word_count++
+				xmas_count++
 			}
 
 			// Reverse Horizontal
 			if cell_match(j-1, i, 'M') && cell_match(j-2, i, 'A') && cell_match(j-3, i, 'S') {
 				// fmt.Println(j, i, "reverse horizontal")
-				word_count++
+				xmas_count++
 			}
 
 			// Vertical
 			if cell_match(j, i+1, 'M') && cell_match(j, i+2, 'A') && cell_match(j, i+3, 'S') {
 				// fmt.Println(j, i, "vertical")
-				word_count++
+				xmas_count++
 			}
 
 			// Reverse Vertical
 			if cell_match(j, i-1, 'M') && cell_match(j, i-2, 'A') && cell_match(j, i-3, 'S') {
 				// fmt.Println(j, i, "reverse vertical")
-				word_count++
+				xmas_count++
 			}
 
 			// Diagonal
 			if cell_match(j+1, i+1, 'M') && cell_match(j+2, i+2, 'A') && cell_match(j+3, i+3, 'S') {
-				word_count++
+				xmas_count++
 			}
 
 			if cell_match(j+1, i-1, 'M') && cell_match(j+2, i-2, 'A') && cell_match(j+3, i-3, 'S') {
-				word_count++
+				xmas_count++
 			}
 
 			// Reverse Diagonal
 			if cell_match(j-1, i+1, 'M') && cell_match(j-2, i+2, 'A') && cell_match(j-3, i+3, 'S') {
-				word_count++
+				xmas_count++
 			}
 
 			if cell_match(j-1, i-1, 'M') && cell_match(j-2, i-2, 'A') && cell_match(j-3, i-3, 'S') {
-				word_count++
+				xmas_count++
 			}
 		}
 	}
 
-	fmt.Println("Problem 1 Result:", word_count) // 2545
+	fmt.Println("Problem 1 Result:", xmas_count) // 2545
 
 	fmt.Println()
 	fmt.Println("--------------------------------------------------------------------------------")
@@ -118,5 +119,20 @@ func main() {
 
 	// PROBLEM 2
 
-	// problem_2(file_content)
+	mas_count := 0
+
+	for i, row := range matrix {
+		for j, cell := range row {
+			if cell != 'A' {
+				continue
+			}
+
+			if ((cell_match(j-1, i-1, 'M') && cell_match(j+1, i+1, 'S')) || (cell_match(j-1, i-1, 'S') && cell_match(j+1, i+1, 'M'))) &&
+				((cell_match(j+1, i-1, 'M') && cell_match(j-1, i+1, 'S')) || (cell_match(j+1, i-1, 'S') && cell_match(j-1, i+1, 'M'))) {
+				mas_count++
+			}
+		}
+	}
+
+	fmt.Println("Problem 2 Result:", mas_count) // 1886
 }
