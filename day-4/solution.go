@@ -127,8 +127,13 @@ func main() {
 				continue
 			}
 
-			if ((cell_match(j-1, i-1, 'M') && cell_match(j+1, i+1, 'S')) || (cell_match(j-1, i-1, 'S') && cell_match(j+1, i+1, 'M'))) &&
-				((cell_match(j+1, i-1, 'M') && cell_match(j-1, i+1, 'S')) || (cell_match(j+1, i-1, 'S') && cell_match(j-1, i+1, 'M'))) {
+			left_to_right := cell_match(j-1, i-1, 'M') && cell_match(j+1, i+1, 'S')
+			reverse_left_to_right := cell_match(j-1, i-1, 'S') && cell_match(j+1, i+1, 'M')
+
+			right_to_left := cell_match(j+1, i-1, 'M') && cell_match(j-1, i+1, 'S')
+			reverse_right_to_left := (cell_match(j+1, i-1, 'S') && cell_match(j-1, i+1, 'M'))
+
+			if (left_to_right || reverse_left_to_right) && (right_to_left || reverse_right_to_left) {
 				mas_count++
 			}
 		}
