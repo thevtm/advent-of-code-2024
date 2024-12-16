@@ -145,19 +145,4 @@ func main() {
 	final_score := maze_score_by_position[end_position]
 
 	fmt.Println("Problem 1 Result:", final_score) // 105508
-
-	for y, row := range maze {
-		for x, cell := range row {
-			score, ok := maze_score_by_position[Position{x, y}]
-
-			if ok {
-				fmt.Printf("%d\t", score)
-			} else {
-				fmt.Printf("%c\t", cell)
-			}
-
-		}
-
-		fmt.Println()
-	}
 }
